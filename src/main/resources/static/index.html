@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Claudiu Murarusi - Company-Personnel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="author" content="Claudiu Murarusi">
+
+    <link rel="stylesheet" href="vendors/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="vendors/node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="vendors/node_modules/w3-css/w3.css">
+    <link rel="stylesheet" href="vendors/node_modules/jquery-confirm/dist/jquery-confirm.min.css">
+    <link rel="stylesheet" href="libs/css/style.css">
+
+</head>
+<body>
+<div class="nav  row ">
+    <div class="col align-self-center">
+        <button class="w3-button w3-circle w3-green fs-3" id="add-person">+</button>
+    </div>
+    <div class="col">
+        <div class="search-box">
+            <button class="btn-search" id="search-button"><i class="fas fa-search"></i></button>
+            <input aria-label="input-search" type="text" class="input-search" id="search" value="" placeholder="Type to Search...">
+        </div>
+    </div>
+    <div class="col align-self-auto">
+        <!-- Example single danger button -->
+        <div class="dropdown">
+            <button class="drop-btn">Options</button>
+            <div class="dropdown-content">
+                <a href="#" id="locations-link">Locations</a>
+                <a href="#" id="departments-link">Departments</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="body-container row ">
+    <div class="personnel-container col-sm-8">
+        <ul class="personnel " id="personnel-list">
+        </ul>
+    </div>
+    <div class="department-container col">
+        <ul class="departments" id="departments-list">
+        </ul>
+    </div>
+</div>
+
+<!-- Modal add person -->
+<div class=" modal fade" id="add-person-modal" tabindex="-1" role="dialog" aria-labelledby="add-person-modal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Add Employee</h5>
+                <div type="button" class="far fa-times-circle" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="add-person-form" class="form" method="post" contenteditable="false" name="addPerson">
+                    <input class="form-control-sm" placeholder="First name" type="text" minlength="3" maxlength="10"
+                           name="firstName" required>
+                    <input class="form-control-sm" placeholder="Last name" type="text" minlength="3" maxlength="10"
+                           name="lastName" required>
+                    <input type="text" required minlength="3" placeholder="Job Title" name="jobTitle">
+                    <input type="email" placeholder="Email" name="email" required>
+                    <select class="department-select" name="addPersonDepartmentName">
+                    </select>
+
+                    <button type="submit" class="btn btn-outline-success">ADD employee</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal edit person -->
+<div class=" modal fade" id="edit-person-modal" tabindex="-1" role="dialog" aria-labelledby="edit-person-modal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit-person-modal-title">Edit Employee</h5>
+                <div type="button" class="far fa-times-circle" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" id="edit-person" name="edit-person" class="form">
+                    <input class="form-control-sm" placeholder="id" type="text" name="id" disabled>
+                    <input class="form-control-sm" placeholder="First name" type="text" minlength="3" maxlength="10"
+                           name="firstName" required>
+                    <input class="form-control-sm" placeholder="Last name" type="text" minlength="3" maxlength="10"
+                           name="lastName" required>
+                    <input type="text" required minlength="3" placeholder="Job Title" name="jobTitle">
+                    <input type="email" placeholder="Email" name="email" id="email-edit" required>
+                    <select class="department-select" name="departmentID">
+                    </select>
+                    <div>
+                    <button type="submit" class="btn btn-outline-success">Save changes</button>
+                    <button type="button" class="btn btn-outline-warning" id="delete-person">Delete employee</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--location modal-->
+<div class=" modal fade" id="location-modal" tabindex="-1" role="dialog" aria-labelledby="location-modal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add or delete location</h5>
+                <div type="button" class="far fa-times-circle" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h2>Add new Location :</h2>
+                    <form action="" method="post" class="form" name="addLocation" id="add-location">
+                    <input class="form-control-sm" placeholder="Insert here" type="text" name="name" minlength="3" required>
+                    <button class="btn btn-outline-success" type="submit">Add</button>
+                    </form>
+                </div>
+                <div>
+                    <h2>Delete location: </h2>
+                    <form action="#" method="post" class="form" name="delete-location" id="delete-location">
+                    <select class="location-select" name="id">
+                    </select>
+                    <button class="btn btn-outline-warning" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--department modal-->
+<div class=" modal fade" id="department-modal" tabindex="-1" role="dialog" aria-labelledby="department-modal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add or delete department</h5>
+                <div type="button" class="far fa-times-circle" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h2>Add new Department :</h2>
+                    <form  method="post" class="form" name="addDepartment" id="add-department">
+                    <input class="form-control-sm" placeholder="Insert here" type="text" minlength="3" name="name" required >
+                    <select name="location" class="location-select" ></select>
+                    <button class="btn btn-outline-success" type="submit">Add</button>
+                    </form>
+                </div>
+                <div>
+                    <h2>Delete department: </h2>
+                    <form action="#" method="post" class="form" name="delete-department" id="delete-department">
+                    <select class="department-select" name="id">
+                    </select>
+                    <button class="btn btn-outline-warning" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="vendors/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="vendors/node_modules/jquery/dist/jquery.js"></script>
+<script src="vendors/node_modules/jquery-confirm/dist/jquery-confirm.min.js"></script>
+<script src="libs/js/script.js"></script>
+</body>
+</html>
